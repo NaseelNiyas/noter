@@ -1,7 +1,7 @@
 import './css/code.css';
 import { useState } from 'react';
-import Home from './pages/Home'
-import Noter from './pages/Noter'
+import Home from './pages/Home';
+import Noter from './pages/Noter';
 import { Context } from './contexts/Context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -11,9 +11,9 @@ function App() {
     <Router>
       <Context.Provider value={{ value, setValue }}>
         <Switch>
-          <Route path='/' component={Home} exact />
-          <Route path='/edit' component={Noter} />
-          <Route path='/404'>
+          <Route path="/" component={Home} exact />
+          <Route path="/edit" component={Noter} />
+          <Route path="/404">
             404 😮❗ Not Found!
             <a href="/">GO to home page</a>
           </Route>

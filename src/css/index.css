@@ -151,7 +151,8 @@ strong {
   }
 }
 
-input[type='text'], select {
+input[type='text'],
+select {
   padding: 15px;
   margin-bottom: 5px;
   border: 0.5px solid;
@@ -163,7 +164,8 @@ input[type='text'], select {
 input[type='text']::placeholder {
   color: white;
 }
-input[type='text']:focus, select:focus {
+input[type='text']:focus,
+select:focus {
   outline: #7a00ff;
   border-radius: 10px;
   padding: 16px;
