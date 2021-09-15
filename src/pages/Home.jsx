@@ -35,12 +35,24 @@ const Home = () => {
         <div className="card main-card">
           <h1>Welcome to Noter!</h1>
           {!noters && 'Loading...'}
-          {noters.length === 0 && (
+          {noters.length === 0 ? (
             <h2>You Dont have any Noters ❗ Create one! 👇 </h2>
+          ) : (
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Actions</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {noters.map((noter) => (
+                  <SingleNoter key={noter.id} noter={noter} />
+                ))}
+              </tbody>
+            </table>
           )}
-          {noters.map((noter) => (
-            <SingleNoter key={noter.id} noter={noter} />
-          ))}
           <form onSubmit={newNoter}>
             <input
               type="text"

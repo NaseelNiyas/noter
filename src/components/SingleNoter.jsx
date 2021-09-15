@@ -1,23 +1,59 @@
+import { useContext, useState } from 'react';
+import Modal from 'react-modal';
 import { MdDelete } from 'react-icons/md';
-import { useContext } from 'react';
 import { Context } from '../contexts/Context';
 
+Modal.setAppElement('#root');
 const SingleNoter = ({ noter }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const { noters, setNoters } = useContext(Context);
   const deleteNoter = (noterId) => {
-    const noters = JSON.parse(localStorage.getItem('noters'));
     const newNoters = noters?.filter((not) => not.id !== noterId);
     localStorage.setItem('noters', JSON.stringify(newNoters));
-    setNoters(newNoters)
+    setNoters(newNoters);
   };
+
+  const showModal = () => {
+    setModalIsOpen(true);
+  };
+
   return (
-    <div className="noter">
-      {noter.name} <a href={`/edit?noter=${noter.id}`}>Edit/View</a>{' '}
-      <button onClick={(e) => deleteNoter(noter.id)} className='delete'>
-        <MdDelete />
-        Delete
-      </button>
-    </div>
+    <>
+      <div className="modal-container">
+        <Modal
+          isOpen={modalIsOpen}
+          style={{ content: { width: '60vw', height: '60vh', marginLeft: '20vw'} }}
+          onRequestClose={() => setModalIsOpen(false)}
+        >
+          <center>
+            <h1>Are you Sure?</h1>
+            <h2>
+              <button onClick={(e) => deleteNoter(noter.id)} className="delete">
+                <MdDelete />
+                Yes
+              </button>
+            </h2>
+            <h2>
+              <button onClick={() => setModalIsOpen(false)} className="no">
+                No
+              </button>
+            </h2>
+          </center>
+        </Modal>
+      </div>
+      <tr className="noter">
+        <th>{noter.name}</th>
+        <th>
+          <a href={`/edit?noter=${noter.id}`}>Edit/View</a>{' '}
+        </th>
+        <th>
+          <button onClick={showModal} className="delete">
+            <MdDelete />
+            Delete
+          </button>
+        </th>
+      </tr>
+    </>
   );
 };
 
