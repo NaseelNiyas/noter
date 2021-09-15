@@ -1,21 +1,22 @@
 import { Context } from '../contexts/Context';
 import SingleNoter from '../components/SingleNoter';
+// @ts-ignore
 import { uniqueString } from '@naseelniyas/unique_id';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, SyntheticEvent } from 'react';
 
 const Home = () => {
   const { noters, setNoters } = useContext(Context);
   const [name, setName] = useState('');
 
   const updateNoters = () => {
-    setNoters(JSON.parse(localStorage.getItem('noters')) ?? []);
+    setNoters(JSON.parse(localStorage.getItem('noters')!) ?? []);
   };
 
   useEffect(() => {
     updateNoters();
   }, []);
 
-  const newNoter = (e) => {
+  const newNoter = (e: SyntheticEvent) => {
     e.preventDefault();
     const id = uniqueString();
     const newNoterData = {
@@ -23,9 +24,10 @@ const Home = () => {
       name,
       data: '',
     };
-    noters.push(newNoterData);
-    setName('');
+    noters.push(newNoterData as never);
     localStorage.setItem('noters', JSON.stringify(noters));
+
+    setName('');
     updateNoters();
   };
 

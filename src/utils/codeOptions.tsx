@@ -71,7 +71,6 @@ const options = {
     'thead',
     'tr',
   ],
-  disallowedTagsMode: 'discard',
   allowedAttributes: {
     a: ['href', 'name', 'target'],
     '*': ['class'],
