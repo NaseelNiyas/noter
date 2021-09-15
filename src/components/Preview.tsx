@@ -6,15 +6,15 @@ import { Context } from '../contexts/Context';
 import { IoColorPalette, IoHomeOutline } from 'react-icons/io5';
 import { AiOutlineFontSize } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState, BaseSyntheticEvent } from 'react';
 
 const Preview = () => {
   const { value } = useContext(Context);
-  const [previewTheme, setPreviewTheme] = useState(
-    localStorage.getItem('previewTheme')
+  const [previewTheme, setPreviewTheme] = useState<string>(
+    localStorage.getItem('previewTheme')!
   );
-  const [previewFont, setPreviewFont] = useState(
-    localStorage.getItem('previewFont')
+  const [previewFont, setPreviewFont] = useState<string>(
+    localStorage.getItem('previewFont')!
   );
   const textTODisplay = sanitizeHtml(marked(value), options);
   useEffect(() => {
@@ -29,11 +29,11 @@ const Preview = () => {
       localStorage.setItem('previewFont', 'Open Sans');
     }
   }, [previewTheme, previewFont]);
-  const handleThemeChange = (e) => {
+  const handleThemeChange = (e: BaseSyntheticEvent) => {
     setPreviewTheme(e.target.value);
     localStorage.setItem('previewTheme', e.target.value);
   };
-  const handleFontChange = (e) => {
+  const handleFontChange = (e: BaseSyntheticEvent) => {
     setPreviewFont(e.target.value);
     localStorage.setItem('previewFont', e.target.value);
   };
@@ -54,7 +54,7 @@ const Preview = () => {
             </label>
             <select
               id="previewTheme"
-              value={previewTheme}
+              value={previewTheme!}
               onChange={(e) => handleThemeChange(e)}
             >
               <option value="light">Light</option>

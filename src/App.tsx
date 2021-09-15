@@ -2,13 +2,14 @@ import './css/code.css';
 import { useState } from 'react';
 import Home from './pages/Home';
 import Noter from './pages/Noter';
+import { NoterType } from './types';
 import { Context } from './contexts/Context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   const [value, setValue] = useState('');
-  const [noters, setNoters] = useState(
-    JSON.parse(localStorage.getItem('noters')) ?? []
+  const [noters, setNoters] = useState<NoterType[]>(
+    JSON.parse(localStorage.getItem('noters')!) ?? []
   );
   return (
     <Router>

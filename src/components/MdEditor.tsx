@@ -1,5 +1,6 @@
 import { useEffect, useContext, useRef } from 'react';
 import theme from '../themes/main.json';
+import { NoterType } from '../types';
 import { Context } from '../contexts/Context';
 import { useLocation, useHistory } from 'react-router-dom';
 import { emmetHTML } from 'emmet-monaco-es';
@@ -12,8 +13,8 @@ const MdEditor = () => {
 
   const editorRef = useRef(null);
   const id = new URLSearchParams(location.search).get('noter');
-  const noter = JSON.parse(localStorage.getItem('noters')).find(
-    (not) => not.id === id
+  const noter = JSON.parse(localStorage.getItem('noters')!).find(
+    (not: NoterType) => not.id === id
   );
   const { value, setValue } = useContext(Context);
 
@@ -31,20 +32,22 @@ const MdEditor = () => {
     console.log(editorRef.current);
   };
 
+  // Saves every Second
   setTimeout(() => {
-    const currentNoters = JSON.parse(localStorage.getItem('noters'));
-    if (currentNoters.find((not) => not.id === id)) {
-      currentNoters.find((not) => not.id === id).data = value;
+    const currentNoters = JSON.parse(localStorage.getItem('noters')!);
+    if (currentNoters.find((not: NoterType) => not.id === id)) {
+      currentNoters.find((not: NoterType) => not.id === id).data = value;
     }
-    localStorage.setItem('noters', JSON.stringify(currentNoters));
+    localStorage.setItem('noters', JSON.stringify(currentNoters)!);
   }, 1000);
 
-  const handleChange = (data) => {
+  const handleChange = (data: string) => {
     setValue(data);
   };
   return (
     <span>
       <Editor
+        // @ts-ignore
         ref={editorRef}
         height="100vh"
         width="50vw"
@@ -62,7 +65,7 @@ const MdEditor = () => {
             enabled: false,
           },
         }}
-        onChange={(data) => handleChange(data)}
+        onChange={(data) => handleChange(data!)}
       />
     </span>
   );

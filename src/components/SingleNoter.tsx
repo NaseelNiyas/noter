@@ -1,14 +1,15 @@
 import { useContext, useState } from 'react';
 import Modal from 'react-modal';
 import { MdDelete } from 'react-icons/md';
+import { SingleNoterTypes, NoterType } from '../types';
 import { Context } from '../contexts/Context';
 
 Modal.setAppElement('#root');
-const SingleNoter = ({ noter }) => {
+const SingleNoter = ({ noter }: SingleNoterTypes) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { noters, setNoters } = useContext(Context);
-  const deleteNoter = (noterId) => {
-    const newNoters = noters?.filter((not) => not.id !== noterId);
+  const deleteNoter = (noterId:string) => {
+    const newNoters = noters?.filter((not: NoterType) => not.id !== noterId);
     localStorage.setItem('noters', JSON.stringify(newNoters));
     setNoters(newNoters);
   };
@@ -25,7 +26,7 @@ const SingleNoter = ({ noter }) => {
           style={{ content: { width: '60vw', height: '60vh', marginLeft: '20vw'} }}
           onRequestClose={() => setModalIsOpen(false)}
         >
-          <center>
+          <div className='center'>
             <h1>Are you Sure?</h1>
             <h2>
               <button onClick={(e) => deleteNoter(noter.id)} className="delete">
@@ -38,7 +39,7 @@ const SingleNoter = ({ noter }) => {
                 No
               </button>
             </h2>
-          </center>
+          </div>
         </Modal>
       </div>
       <tr className="noter">
