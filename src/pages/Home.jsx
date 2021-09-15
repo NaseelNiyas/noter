@@ -1,14 +1,16 @@
-import { useState, useEffect } from 'react';
+import { Context } from '../contexts/Context';
 import SingleNoter from '../components/SingleNoter';
 import { uniqueString } from '@naseelniyas/unique_id';
+import { useState, useEffect, useContext } from 'react';
 
 const Home = () => {
-  const [noters, setNoters] = useState([]);
+  const { noters, setNoters } = useContext(Context);
   const [name, setName] = useState('');
 
   const updateNoters = () => {
     setNoters(JSON.parse(localStorage.getItem('noters')) ?? []);
   };
+
   useEffect(() => {
     updateNoters();
   }, []);
@@ -32,6 +34,7 @@ const Home = () => {
       <div className="center">
         <div className="card main-card">
           <h1>Welcome to Noter!</h1>
+          {!noters && 'Loading...'}
           {noters.length === 0 && (
             <h2>You Dont have any Noters ❗ Create one! 👇 </h2>
           )}

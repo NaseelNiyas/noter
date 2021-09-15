@@ -50,9 +50,9 @@ strong {
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-}
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(19, 28, 80, 0.623);
+  &:hover {
+    box-shadow: 0 8px 16px 0 rgba(19, 28, 80, 0.623);
+  }
 }
 
 .main-card {
@@ -61,18 +61,16 @@ strong {
   width: 50vw;
   padding: 8px;
   border-radius: 10;
+  & > h1 {
+    font-size: xx-large;
+    font-family: 'Comfortaa';
+  }
 }
-.main-card > h1 {
-  font-size: xx-large;
-  font-family: 'Comfortaa';
-}
-
 .center {
   margin: auto;
   width: 50%;
   padding: 10px;
 }
-
 .btn-new {
   width: 220px;
   height: 50px;
@@ -85,58 +83,55 @@ strong {
   z-index: 0;
   border-radius: 10px;
   font-family: 'Comfortaa';
-}
-
-.btn-new:before {
-  content: '';
-  background: linear-gradient(
-    45deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00c8,
-    #ff0000
-  );
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  background-size: 400%;
-  z-index: -1;
-  filter: blur(5px);
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  animation: glowing 20s linear infinite;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  border-radius: 10px;
-}
-
-.btn-new:active {
-  color: #000;
-}
-
-.btn-new:active:after {
-  background: transparent;
-}
-
-.btn-new:hover:before {
-  opacity: 1;
-}
-
-.btn-new:after {
-  z-index: -1;
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #111;
-  left: 0;
-  top: 0;
-  border-radius: 10px;
+  &:before {
+    content: '';
+    background: linear-gradient(
+      45deg,
+      #ff0000,
+      #ff7300,
+      #fffb00,
+      #48ff00,
+      #00ffd5,
+      #002bff,
+      #7a00ff,
+      #ff00c8,
+      #ff0000
+    );
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+  &:active {
+    color: #000;
+    &::after {
+      background: transparent;
+    }
+  }
+  &:hover {
+    &:before {
+      opacity: 1;
+    }
+  }
+  &::after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
 }
 
 @keyframes glowing {
@@ -159,40 +154,24 @@ select {
   background-color: #000;
   color: white;
   border-radius: 15px;
-  transition: all 0.5s ease;
-}
-input[type='text']::placeholder {
-  color: white;
-}
-input[type='text']:focus,
-select:focus {
-  outline: #7a00ff;
-  border-radius: 10px;
-  padding: 16px;
+  transition: all 0.5s ease-in;
+  &:focus {
+    outline: #7a00ff;
+    border-radius: 10px;
+    padding: 16px;
+  }
+  &::placeholder {
+    color: white;
+  }
 }
 
 .home {
   height: 100vh;
   font-family: 'Comfortaa';
 }
-
 .noter {
   margin-bottom: 5px;
 }
-
-/* select {
-  padding: 10px;
-  margin-left: 8px;
-  border-radius: 10px;
-  transition: all 0.5s ease-in;
-}
-select:hover {
-  border-radius: 5px;
-}
-select:focus {
-  outline: none;
-} */
-
 .preview-dark {
   background-color: #111;
   color: white;
@@ -202,35 +181,42 @@ select:focus {
   background-color: #011627;
   color: white;
 }
-
 a {
   position: relative;
   color: #54aeb1;
   text-decoration: none;
-}
-
-a:before {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: 0;
-  right: 0;
-  background-color: #fff;
-  visibility: hidden;
-  transition: all 0.3s ease-in-out;
-}
-
-a:hover:before {
-  visibility: visible;
-  width: 100%;
-}
-
-a:hover {
-  color: rgb(80, 140, 148);
+  &:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    right: 0;
+    background-color: #fff;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+  &:hover {
+    color: rgb(80, 140, 148);
+    &:before {
+      visibility: visible;
+      width: 100%;
+    }
+  }
 }
 
 .preview-settings {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.delete {
+  color: red;
+  border: none;
+  background: radial-gradient(rgb(255, 255, 255), rgb(255, 213, 213));
+  padding: 5px;
+  transition: all 0.5s ease;
+  &:hover {
+    background: radial-gradient(rgb(255, 187, 187), rgb(247, 185, 185));
+  }
 }

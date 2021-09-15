@@ -7,9 +7,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   const [value, setValue] = useState('');
+  const [noters, setNoters] = useState(
+    JSON.parse(localStorage.getItem('noters')) ?? []
+  );
   return (
     <Router>
-      <Context.Provider value={{ value, setValue }}>
+      <Context.Provider value={{ value, setValue, noters, setNoters }}>
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/edit" component={Noter} />
