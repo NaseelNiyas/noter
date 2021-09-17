@@ -3,6 +3,7 @@ import SingleNoter from '../components/SingleNoter';
 // @ts-ignore
 import { uniqueString } from '@naseelniyas/unique_id';
 import { useState, useEffect, useContext, SyntheticEvent } from 'react';
+import { checkIfNoterExists } from '../utils';
 
 const Home = () => {
   const { noters, setNoters } = useContext(Context);
@@ -16,14 +17,27 @@ const Home = () => {
     updateNoters();
   }, []);
 
+
+
   const newNoter = (e: SyntheticEvent) => {
     e.preventDefault();
-    const id = uniqueString();
+
+    // Create unique String
+    let id = uniqueString();
+
+    // Check if the noter exists
+    if (checkIfNoterExists(id, noters)) {
+      id = uniqueString();
+    }
+
+    // Blueprint for new Noter
     const newNoterData = {
       id,
       name,
       data: '',
     };
+
+    // Save noter
     noters.push(newNoterData as never);
     localStorage.setItem('noters', JSON.stringify(noters));
 
@@ -40,7 +54,7 @@ const Home = () => {
           {noters.length === 0 ? (
             <h2>You Dont have any Noters ❗ Create one! 👇 </h2>
           ) : (
-            <table className="table table-striped">
+            <table className="table table-striped transition">
               <thead>
                 <tr>
                   <th scope="col">Name</th>
